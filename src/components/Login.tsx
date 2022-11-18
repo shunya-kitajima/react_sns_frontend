@@ -50,6 +50,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const initialState = {
+  isLoading: false,
+  isLoginView: true,
+  error: '',
+  credentialsReg: {
+    email: '',
+    password: '',
+  },
+  credentialsLog: {
+    username: '',
+    password: '',
+  },
+}
+
 const Login: React.FC = () => {
   const classes = useStyles()
 
