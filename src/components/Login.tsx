@@ -315,7 +315,7 @@ const Login: React.FC = (props: any) => {
               Register
             </Button>
           )}
-          <span onChange={() => toggleView()} className={classes.span}>
+          <span onClick={() => toggleView()} className={classes.span}>
             {state.isLoginView ? 'Create Account ?' : 'Back to Login ?'}
           </span>
         </div>
