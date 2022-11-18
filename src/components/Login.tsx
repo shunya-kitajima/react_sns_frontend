@@ -32,6 +32,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    color: 'teal',
+  },
+  spanError: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: 'fuchsia',
+    marginTop: 10,
   },
 }))
 
