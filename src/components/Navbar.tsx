@@ -22,8 +22,8 @@ const Navbar: React.FC = (props) => {
   const classes = useStyles()
   const navigate = useNavigate()
 
-  const logout = () => {
-    props.cookies.remove('current-token')
+  const logout = (): void => {
+    // props.cookies.remove('current-token')
     navigate('/')
   }
 
