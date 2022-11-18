@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  span: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 }))
 
 const Login: React.FC = () => {
