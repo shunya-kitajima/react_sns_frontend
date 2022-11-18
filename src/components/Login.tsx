@@ -14,7 +14,8 @@ import {
   START_FETCH,
   FETCH_SUCCESS,
   ERROR_CATCHED,
-  INPUT_EDIT,
+  INPUT_EDIT_LOG,
+  INPUT_EDIT_REG,
   TOGGLE_MODE,
 } from './actionTypes'
 import { InitialState, Action } from '../types'
@@ -87,7 +88,14 @@ const loginReducer = (state: InitialState, action: Action): InitialState => {
         isLoading: false,
       }
     }
-    case INPUT_EDIT: {
+    case INPUT_EDIT_LOG: {
+      return {
+        ...state,
+        [action.inputName]: action.payload,
+        error: '',
+      }
+    }
+    case INPUT_EDIT_REG: {
       return {
         ...state,
         [action.inputName]: action.payload,
@@ -118,7 +126,7 @@ const Login: React.FC = (props: any) => {
     const cred = state.credentialsReg
     cred[e.target.name] = e.target.value
     dispatch({
-      type: INPUT_EDIT,
+      type: INPUT_EDIT_REG,
       inputName: 'state.credentialsReg',
       payload: cred,
     })
@@ -131,7 +139,7 @@ const Login: React.FC = (props: any) => {
     const cred = state.credentialsLog
     cred[e.target.name] = e.target.value
     dispatch({
-      type: INPUT_EDIT,
+      type: INPUT_EDIT_LOG,
       inputName: 'state.credentialsLog',
       payload: cred,
     })
