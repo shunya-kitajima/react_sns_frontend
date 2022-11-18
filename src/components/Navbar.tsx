@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Navbar: React.FC = (props) => {
+const Navbar: React.FC = (props: any) => {
   const classes = useStyles()
   const navigate = useNavigate()
 
   const logout = (): void => {
-    // props.cookies.remove('current-token')
+    props.cookies.remove('current-token')
     navigate('/')
   }
 
