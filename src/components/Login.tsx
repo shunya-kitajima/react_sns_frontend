@@ -16,6 +16,7 @@ import {
   INPUT_EDIT,
   TOGGLE_MODE,
 } from './actionTypes'
+import { InitialState } from '../types'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -50,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const initialState = {
+const initialState: InitialState = {
   isLoading: false,
   isLoginView: true,
   error: '',
@@ -64,8 +65,49 @@ const initialState = {
   },
 }
 
+const loginReducer = (state: InitialState, action): InitialState => {
+  switch (action.type) {
+    case START_FETCH: {
+      return {
+        ...state,
+        isLoading: true,
+      }
+    }
+    case FETCH_SUCCESS: {
+      return {
+        ...state,
+        isLoginView: false,
+      }
+    }
+    case ERROR_CATCHED: {
+      return {
+        ...state,
+        error: 'email or Password is not correct',
+        isLoading: false,
+      }
+    }
+    case INPUT_EDIT: {
+      return {
+        ...state,
+        [action.inputName]: action.payload,
+        error: '',
+      }
+    }
+    case TOGGLE_MODE: {
+      return {
+        ...state,
+        isLoginView: !state.isLoginView,
+      }
+    }
+    default: {
+      return state
+    }
+  }
+}
+
 const Login: React.FC = () => {
   const classes = useStyles()
+  const [state, dispatch] = useReducer(loginReducer, initialState)
 
   return <div></div>
 }
