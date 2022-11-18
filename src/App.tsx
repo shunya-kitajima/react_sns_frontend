@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core'
 import { indigo } from '@material-ui/core/colors'
 import Navbar from './components/Navbar'
+import './App.css'
 
 const theme = createTheme({
   palette: {
