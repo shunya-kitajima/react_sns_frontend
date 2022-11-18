@@ -2,6 +2,7 @@ import React from 'react'
 import { createTheme } from '@material-ui/core'
 import { ThemeProvider as MuiThemProvider } from '@material-ui/core'
 import { indigo } from '@material-ui/core/colors'
+import Navbar from './components/Navbar'
 
 const theme = createTheme({
   palette: {
@@ -16,7 +17,11 @@ const theme = createTheme({
 })
 
 const App: React.FC = () => {
-  return <MuiThemProvider theme={theme}></MuiThemProvider>
+  return (
+    <MuiThemProvider theme={theme}>
+      <Navbar />
+    </MuiThemProvider>
+  )
 }
 
 export default App
