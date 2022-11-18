@@ -1,7 +1,21 @@
 import React from 'react'
 import { createTheme } from '@material-ui/core'
+import { ThemeProvider as MuiThemProvider } from '@material-ui/core'
+import { indigo } from '@material-ui/core/colors'
 import logo from './logo.svg'
 import './App.css'
+
+const theme = createTheme({
+  palette: {
+    primary: indigo,
+    secondary: {
+      main: '#f44336',
+    },
+  },
+  typography: {
+    fontFamily: 'Comic Neue',
+  },
+})
 
 const App: React.FC = () => {
   return (
