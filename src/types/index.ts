@@ -11,3 +11,9 @@ export interface InitialState {
     password: string
   }
 }
+
+export interface Action {
+  type: string
+  inputName: string
+  payload: {}
+}
