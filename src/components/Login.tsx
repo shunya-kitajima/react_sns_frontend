@@ -1,5 +1,6 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, ChangeEvent, FormEvent } from 'react'
 import { withCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -16,7 +17,7 @@ import {
   INPUT_EDIT,
   TOGGLE_MODE,
 } from './actionTypes'
-import { InitialState } from '../types'
+import { InitialState, Action } from '../types'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -65,7 +66,7 @@ const initialState: InitialState = {
   },
 }
 
-const loginReducer = (state: InitialState, action): InitialState => {
+const loginReducer = (state: InitialState, action: Action): InitialState => {
   switch (action.type) {
     case START_FETCH: {
       return {
@@ -105,9 +106,105 @@ const loginReducer = (state: InitialState, action): InitialState => {
   }
 }
 
-const Login: React.FC = () => {
+const Login: React.FC = (props: any) => {
   const classes = useStyles()
+  const navigate = useNavigate()
   const [state, dispatch] = useReducer(loginReducer, initialState)
+
+  const inputChangedReg = (e: ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault()
+    const cred = state.credentialsReg
+    cred[e.target.name] = e.target.value
+    dispatch({
+      type: INPUT_EDIT,
+      inputName: 'state.credentialsReg',
+      payload: cred,
+    })
+  }
+
+  const inputChangedLog = (e: ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault()
+    const cred = state.credentialsLog
+    cred[e.target.name] = e.target.value
+    dispatch({
+      type: INPUT_EDIT,
+      inputName: 'state.credentialsLog',
+      payload: cred,
+    })
+  }
+
+  const login = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault()
+    if (state.isLoginView) {
+      try {
+        dispatch({
+          type: START_FETCH,
+          inputName: 'state.isLoginView',
+          payload: {},
+        })
+        const res = await axios.post(
+          'http://127.0.0.1:8000/authen/',
+          state.credentialsLog,
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
+        props.cookies.set('current-token', res.data.token)
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        res.data.token ? navigate('/profile') : navigate('/')
+        dispatch({
+          type: FETCH_SUCCESS,
+          inputName: 'state.isLoading',
+          payload: {},
+        })
+      } catch (e: any) {
+        dispatch({
+          type: ERROR_CATCHED,
+          inputName: 'state.isLoading',
+          payload: {},
+        })
+      }
+    } else {
+      try {
+        dispatch({
+          type: START_FETCH,
+          inputName: 'state.isLoginView',
+          payload: {},
+        })
+        const res = await axios.post(
+          'http://127.0.0.1:8000/api/user/create',
+          state.credentialsReg,
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
+        dispatch({
+          type: FETCH_SUCCESS,
+          inputName: 'state.isLoading',
+          payload: {},
+        })
+        dispatch({
+          type: TOGGLE_MODE,
+          inputName: 'state.isLoginView',
+          payload: {},
+        })
+      } catch (e: any) {
+        dispatch({
+          type: ERROR_CATCHED,
+          inputName: 'state.isLoading',
+          payload: {},
+        })
+      }
+    }
+  }
+
+  const toggleView = (): void => {
+    dispatch({
+      type: TOGGLE_MODE,
+      inputName: 'state.isLoginView',
+      payload: {},
+    })
+  }
 
   return <div></div>
 }
