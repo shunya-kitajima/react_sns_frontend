@@ -125,7 +125,11 @@ const Login: React.FC = (props: any) => {
   ): void => {
     e.preventDefault()
     const cred = state.credentialsReg
-    cred[e.target.name] = e.target.value
+    if (e.target.name === 'email') {
+      cred.email = e.target.value
+    } else {
+      cred.password = e.target.value
+    }
     dispatch({
       type: INPUT_EDIT_REG,
       inputName: 'state.credentialsReg',
@@ -138,7 +142,11 @@ const Login: React.FC = (props: any) => {
   ): void => {
     e.preventDefault()
     const cred = state.credentialsLog
-    cred[e.target.name] = e.target.value
+    if (e.target.name === 'username') {
+      cred.username = e.target.value
+    } else {
+      cred.password = e.target.value
+    }
     dispatch({
       type: INPUT_EDIT_LOG,
       inputName: 'state.credentialsLog',
