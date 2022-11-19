@@ -33,7 +33,12 @@ const Navbar: React.FC = (props: any) => {
         <Typography variant="h5" className={classes.title}>
           SNS App
         </Typography>
-        <Badge className={classes.badge} badgeContent={3} color="secondary">
+        <Badge
+          className={classes.badge}
+          badgeContent={3}
+          color="secondary"
+          overlap="rectangular"
+        >
           <NotificationsIcon />
         </Badge>
         <button className="signOut" onClick={() => logout()}>
