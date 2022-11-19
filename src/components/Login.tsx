@@ -164,7 +164,7 @@ const Login: React.FC = (props: any) => {
         )
         props.cookies.set('current-token', res.data.token)
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        res.data.token ? navigate('/profile') : navigate('/')
+        res.data.token ? navigate('/profiles') : navigate('/')
         dispatch({
           type: FETCH_SUCCESS,
           inputName: 'state.isLoading',
