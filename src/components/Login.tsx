@@ -185,7 +185,7 @@ const Login: React.FC = (props: any) => {
           payload: {},
         })
         await axios.post(
-          'http://127.0.0.1:8000/api/user/create',
+          'http://127.0.0.1:8000/api/user/create/',
           state.credentialsReg,
           {
             headers: { 'Content-Type': 'application/json' },
