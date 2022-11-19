@@ -79,7 +79,7 @@ const loginReducer = (state: InitialState, action: Action): InitialState => {
     case FETCH_SUCCESS: {
       return {
         ...state,
-        isLoginView: false,
+        isLoading: false,
       }
     }
     case ERROR_CATCHED: {
