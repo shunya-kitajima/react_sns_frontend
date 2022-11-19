@@ -12,5 +12,10 @@ module.exports = {
     project: './tsconfig.json',
   },
   plugins: ['react'],
-  rules: {},
+  rules: {
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      { checksVoidReturn: { attributes: false } },
+    ],
+  },
 }

@@ -221,7 +221,7 @@ const Login: React.FC = (props: any) => {
 
   return (
     <Container maxWidth="xs">
-      <form onSubmit={() => login}>
+      <form onSubmit={login}>
         <div className={classes.paper}>
           {state.isLoading && <CircularProgress />}
           <Avatar className={classes.avatar}>
