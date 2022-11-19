@@ -85,7 +85,7 @@ const loginReducer = (state: InitialState, action: Action): InitialState => {
     case ERROR_CATCHED: {
       return {
         ...state,
-        error: 'email or Password is not correct',
+        error: 'Email or Password is not correct',
         isLoading: false,
       }
     }
