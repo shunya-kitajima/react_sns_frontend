@@ -1,5 +1,4 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import Appbar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -20,11 +19,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar: React.FC = (props: any) => {
   const classes = useStyles()
-  const navigate = useNavigate()
 
   const logout = (): void => {
     props.cookies.remove('current-token')
-    navigate('/')
+    window.location.href = '/'
   }
 
   return (

@@ -1,6 +1,5 @@
 import React, { useReducer, ChangeEvent, FormEvent } from 'react'
 import { withCookies } from 'react-cookie'
-import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -117,7 +116,6 @@ const loginReducer = (state: InitialState, action: Action): InitialState => {
 
 const Login: React.FC = (props: any) => {
   const classes = useStyles()
-  const navigate = useNavigate()
   const [state, dispatch] = useReducer(loginReducer, initialState)
 
   const inputChangedReg = (
@@ -172,7 +170,9 @@ const Login: React.FC = (props: any) => {
         )
         props.cookies.set('current-token', res.data.token)
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        res.data.token ? navigate('/profiles') : navigate('/')
+        res.data.token
+          ? (window.location.href = '/profiles')
+          : (window.location.href = '/')
         dispatch({
           type: FETCH_SUCCESS,
           inputName: 'state.isLoading',
