@@ -1,13 +1,23 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { withCookies } from 'react-cookie'
 import axios from 'axios'
+import { EditedProfile, Profile } from '../types'
 
 export const ApiContext = createContext()
 
 const ApiContextProvider: React.FC = (props: any) => {
-  const [profile, setProfile] = useState([])
-  const [profiles, setProfiles] = useState([])
-  const [editedProfile, setEditedProfile] = useState({ id: '', nickName: '' })
+  const [profile, setProfile] = useState<Profile>({
+    id: '',
+    nickName: '',
+    userPro: '',
+    created_at: '',
+    img: '',
+  })
+  const [profiles, setProfiles] = useState<Profile[]>([])
+  const [editedProfile, setEditedProfile] = useState<EditedProfile>({
+    id: '',
+    nickName: '',
+  })
   const [askList, setAskList] = useState([])
   const [askListFull, setAskListFull] = useState([])
   const [inbox, setInbox] = useState([])
@@ -81,6 +91,62 @@ const ApiContextProvider: React.FC = (props: any) => {
     void getProfiles()
     void getInbox()
   }, [token, profile.id])
+
+  const createProfile = async (): Promise<void> => {
+    const createData = new FormData()
+    createData.append('nickName', editedProfile.nickName)
+    cover.name && createData.append('img', cover, cover.name)
+    try {
+      const res = await axios.post(
+        'http://127.0.0.1:8000/api/user/profile/',
+        createData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `token ${token}`,
+          },
+        }
+      )
+      setProfile(res.data)
+      setEditedProfile({ id: res.data.id, nickName: res.data.nickName })
+    } catch (err: any) {
+      console.log(err.message)
+    }
+  }
+
+  const deleteProfile = async (): Promise<void> => {
+    try {
+      await axios.delete(
+        `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `token ${token}`,
+          },
+        }
+      )
+      setProfiles(
+        profiles.filter((prof) => {
+          return profile.id !== prof.id
+        })
+      )
+      setProfile({
+        id: '',
+        nickName: '',
+        userPro: '',
+        created_at: '',
+        img: '',
+      })
+      setEditedProfile({
+        id: '',
+        nickName: '',
+      })
+      setCover([])
+      setAskList([])
+    } catch (err: any) {
+      console.log(err.message)
+    }
+  }
 
   return <div></div>
 }
