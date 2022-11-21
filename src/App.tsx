@@ -26,7 +26,9 @@ const App: React.FC = () => {
     <ApiContextProvider>
       <MuiThemProvider theme={theme}>
         <Navbar />
-        <Main />
+        <div className="container">
+          <Main />
+        </div>
       </MuiThemProvider>
     </ApiContextProvider>
   )
