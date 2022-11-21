@@ -10,8 +10,21 @@ const Main: React.FC = () => {
       <Grid item xs={4}>
         <div className="app-profiles"></div>
       </Grid>
-      <Grid item xs={4}></Grid>
-      <Grid item xs={4}></Grid>
+      <Grid item xs={4}>
+        <div className="app-details"></div>
+        <h3 className="title-friendRequest">
+          <BsFillPeopleFill className="badge" />
+          Approval request list
+        </h3>
+        <div className="app-details"></div>
+      </Grid>
+      <Grid item xs={4}>
+        <h3>
+          <GoMail className="badge" />
+          DM Inbox
+        </h3>
+        <div className="app-dms"></div>
+      </Grid>
     </Grid>
   )
 }
