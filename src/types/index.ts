@@ -18,6 +18,14 @@ export interface Action {
   payload: {}
 }
 
+export interface Profile {
+  id: string
+  nickName: string
+  userPro: string
+  created_at: string
+  img: string
+}
+
 export interface EditedProfile {
   id: string
   nickName: string
