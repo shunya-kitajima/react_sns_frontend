@@ -18,8 +18,12 @@ const ApiContextProvider: React.FC = (props: any) => {
     id: '',
     nickName: '',
   })
-  const [askList, setAskList] = useState<FriendRequest[]>([])
-  const [askListFull, setAskListFull] = useState<FriendRequest[]>([])
+  const [friendRequestList, setFriendRequestList] = useState<FriendRequest[]>(
+    []
+  )
+  const [allFriendRequestList, setAllFriendRequestList] = useState<
+    FriendRequest[]
+  >([])
   const [inbox, setInbox] = useState([])
   const [cover, setCover] = useState<Cover>({ name: '' })
   const token = props.cookies.get('current-token') as string
@@ -50,12 +54,12 @@ const ApiContextProvider: React.FC = (props: any) => {
             id: resMyProfile.data[0].id,
             nickName: resMyProfile.data[0].nickName,
           })
-          setAskList(
+          setFriendRequestList(
             resMyProfile.data.filter((ask: any) => {
               return resMyProfile.data[0].userPro === ask.askTo
             })
           )
-          setAskListFull(resApproval.data)
+          setAllFriendRequestList(resApproval.data)
         }
       } catch (err: any) {
         console.log(err.message)
@@ -141,8 +145,8 @@ const ApiContextProvider: React.FC = (props: any) => {
         id: '',
         nickName: '',
       })
-      setCover([])
-      setAskList([])
+      setCover({ name: '' })
+      setFriendRequestList([])
     } catch (err: any) {
       console.log(err.message)
     }
@@ -169,13 +173,11 @@ const ApiContextProvider: React.FC = (props: any) => {
     }
   }
 
-  const createFriendRequest = async (
-    requestData: FriendRequest
-  ): Promise<void> => {
+  const createFriendRequest = async (request: FriendRequest): Promise<void> => {
     try {
       const res = await axios.post(
         'http://127.0.0.1:8000/api/user/approval/',
-        requestData,
+        request,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -183,13 +185,69 @@ const ApiContextProvider: React.FC = (props: any) => {
           },
         }
       )
-      setAskListFull([...askListFull, res.data])
+      setAllFriendRequestList([...allFriendRequestList, res.data])
     } catch (err: any) {
       console.log(err.message)
     }
   }
 
-  const approvedFriendRequest = () => {}
+  const approveFriendRequest = async (
+    request: FriendRequest,
+    approvedRequest: FriendRequest
+  ): Promise<void> => {
+    try {
+      const res = await axios.put(
+        `http://127.0.0.1:8000/api/user/approval/${request.id}`,
+        approvedRequest,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `token ${token}`,
+          },
+        }
+      )
+      setFriendRequestList(
+        friendRequestList.map((ask) => (ask.id === request.id ? res.data : ask))
+      )
+
+      const prevRequests = allFriendRequestList.filter(
+        (ask) =>
+          ask.askFrom === profile.userPro && ask.askTo === request.askFrom
+      )
+
+      if (prevRequests.length === 0) {
+        const opositRequest = {
+          askFrom: profile.userPro,
+          askTo: request.askFrom,
+          approved: true,
+        }
+        await axios.post(
+          'http://127.0.0.1:8000/api/user/approval/',
+          opositRequest,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `token ${token}`,
+            },
+          }
+        )
+      } else {
+        prevRequests[0].approved = true
+        await axios.put(
+          `http://127.0.0.1:8000/api/user/approval/${prevRequests[0].id}/`,
+          prevRequests[0],
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `token ${token}`,
+            },
+          }
+        )
+      }
+    } catch (err: any) {
+      console.log(err.message)
+    }
+  }
 
   const sendDM = async (DM: DM): Promise<void> => {
     try {
@@ -204,7 +262,29 @@ const ApiContextProvider: React.FC = (props: any) => {
     }
   }
 
-  return <div></div>
+  return (
+    <ApiContext.Provider
+      value={{
+        profile,
+        profiles,
+        editedProfile,
+        setEditedProfile,
+        friendRequestList,
+        allFriendRequestList,
+        inbox,
+        cover,
+        setCover,
+        createProfile,
+        updateProfile,
+        deleteProfile,
+        createFriendRequest,
+        approveFriendRequest,
+        sendDM,
+      }}
+    >
+      {props.children}
+    </ApiContext.Provider>
+  )
 }
 
 export default withCookies(ApiContextProvider)
