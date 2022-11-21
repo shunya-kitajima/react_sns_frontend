@@ -30,3 +30,13 @@ export interface EditedProfile {
   id: string
   nickName: string
 }
+
+export interface FriendRequest {
+  askFrom: string
+  askTo: string
+  approved: boolean
+}
+
+export interface Cover {
+  name: string | Blob
+}
