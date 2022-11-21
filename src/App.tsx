@@ -7,6 +7,7 @@ import { indigo } from '@material-ui/core/colors'
 import Navbar from './components/Navbar'
 import ApiContextProvider from './context/ApiContext'
 import './App.css'
+import Main from './components/Main'
 
 const theme = createTheme({
   palette: {
@@ -25,6 +26,7 @@ const App: React.FC = () => {
     <ApiContextProvider>
       <MuiThemProvider theme={theme}>
         <Navbar />
+        <Main />
       </MuiThemProvider>
     </ApiContextProvider>
   )
