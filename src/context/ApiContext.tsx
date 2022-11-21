@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { withCookies } from 'react-cookie'
 import axios from 'axios'
-import { Profile, EditedProfile, Cover, FriendRequest } from '../types'
+import { Profile, EditedProfile, Cover, FriendRequest, DM } from '../types'
 
 export const ApiContext = createContext()
 
@@ -184,6 +184,21 @@ const ApiContextProvider: React.FC = (props: any) => {
         }
       )
       setAskListFull([...askListFull, res.data])
+    } catch (err: any) {
+      console.log(err.message)
+    }
+  }
+
+  const approvedFriendRequest = () => {}
+
+  const sendDM = async (DM: DM): Promise<void> => {
+    try {
+      await axios.post('http://127.0.0.1:8000/api/dm/message/', DM, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `token ${token}`,
+        },
+      })
     } catch (err: any) {
       console.log(err.message)
     }
