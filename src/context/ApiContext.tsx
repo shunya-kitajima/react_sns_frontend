@@ -15,7 +15,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   const token = props.cookies.get('current-token') as string
 
   useEffect(() => {
-    const getMyProfile = async () => {
+    const getMyProfile = async (): Promise<void> => {
       try {
         const resMyProfile = await axios.get(
           'http://127.0.0.1:8000/api/user/myprofile/',
@@ -40,10 +40,47 @@ const ApiContextProvider: React.FC = (props: any) => {
             id: resMyProfile.data[0].id,
             nickName: resMyProfile.data[0].nickName,
           })
+          setAskList(
+            resMyProfile.data.filter((ask: any) => {
+              return resMyProfile.data[0].userPro === ask.askTo
+            })
+          )
+          setAskListFull(resApproval.data)
         }
-      } catch (err: any) {}
+      } catch (err: any) {
+        console.log(err.message)
+      }
     }
-  }, [])
+
+    const getProfiles = async (): Promise<void> => {
+      try {
+        const res = await axios.get('http://127.0.0.1:8000/api/user/profile/', {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        })
+        setProfiles(res.data)
+      } catch (err: any) {
+        console.log(err.message)
+      }
+    }
+
+    const getInbox = async (): Promise<void> => {
+      try {
+        const res = await axios.get('http://127.0.0.1:8000/api/dm/inbox/', {
+          headers: {
+            Authorization: `token ${token}`,
+          },
+        })
+        setInbox(res.data)
+      } catch (err: any) {
+        console.log(err.message)
+      }
+    }
+    void getMyProfile()
+    void getProfiles()
+    void getInbox()
+  }, [token, profile.id])
 
   return <div></div>
 }
