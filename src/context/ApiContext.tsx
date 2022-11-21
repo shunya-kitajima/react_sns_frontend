@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react'
 import { withCookies } from 'react-cookie'
 import axios from 'axios'
-import { EditedProfile, Profile } from '../types'
+import { Profile, EditedProfile, Cover, FriendRequest } from '../types'
 
 export const ApiContext = createContext()
 
@@ -18,10 +18,10 @@ const ApiContextProvider: React.FC = (props: any) => {
     id: '',
     nickName: '',
   })
-  const [askList, setAskList] = useState([])
-  const [askListFull, setAskListFull] = useState([])
+  const [askList, setAskList] = useState<FriendRequest[]>([])
+  const [askListFull, setAskListFull] = useState<FriendRequest[]>([])
   const [inbox, setInbox] = useState([])
-  const [cover, setCover] = useState([])
+  const [cover, setCover] = useState<Cover>({ name: '' })
   const token = props.cookies.get('current-token') as string
 
   useEffect(() => {
@@ -143,6 +143,47 @@ const ApiContextProvider: React.FC = (props: any) => {
       })
       setCover([])
       setAskList([])
+    } catch (err: any) {
+      console.log(err.message)
+    }
+  }
+
+  const updateProfile = async (): Promise<void> => {
+    const editData = new FormData()
+    editData.append('nickName', editedProfile.nickName)
+    cover.name && editData.append('img', cover, cover.name)
+    try {
+      const res = await axios.put(
+        `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
+        editData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `token ${token}`,
+          },
+        }
+      )
+      setProfile(res.data)
+    } catch (err: any) {
+      console.log(err.message)
+    }
+  }
+
+  const createFriendRequest = async (
+    requestData: FriendRequest
+  ): Promise<void> => {
+    try {
+      const res = await axios.post(
+        'http://127.0.0.1:8000/api/user/approval/',
+        requestData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `token ${token}`,
+          },
+        }
+      )
+      setAskListFull([...askListFull, res.data])
     } catch (err: any) {
       console.log(err.message)
     }
