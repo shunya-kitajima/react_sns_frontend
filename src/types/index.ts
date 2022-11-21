@@ -32,6 +32,7 @@ export interface EditedProfile {
 }
 
 export interface FriendRequest {
+  id: string
   askFrom: string
   askTo: string
   approved: boolean
