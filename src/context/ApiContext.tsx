@@ -3,7 +3,7 @@ import { withCookies } from 'react-cookie'
 import axios from 'axios'
 import { Profile, EditedProfile, Cover, FriendRequest, DM } from '../types'
 
-export const ApiContext = createContext()
+export const ApiContext = createContext({})
 
 const ApiContextProvider: React.FC = (props: any) => {
   const [profile, setProfile] = useState<Profile>({
@@ -99,7 +99,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   const createProfile = async (): Promise<void> => {
     const createData = new FormData()
     createData.append('nickName', editedProfile.nickName)
-    cover.name && createData.append('img', cover, cover.name)
+    cover.name !== '' && createData.append('img', cover, cover.name)
     try {
       const res = await axios.post(
         'http://127.0.0.1:8000/api/user/profile/',
@@ -155,7 +155,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   const updateProfile = async (): Promise<void> => {
     const editData = new FormData()
     editData.append('nickName', editedProfile.nickName)
-    cover.name && editData.append('img', cover, cover.name)
+    cover.name !== '' && editData.append('img', cover, cover.name)
     try {
       const res = await axios.put(
         `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
