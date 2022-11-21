@@ -40,3 +40,9 @@ export interface FriendRequest {
 export interface Cover {
   name: string | Blob
 }
+
+export interface DM {
+  sender: string
+  receiver: string
+  content: string
+}
