@@ -17,3 +17,8 @@ export interface Action {
   inputName: string
   payload: {}
 }
+
+export interface EditedProfile {
+  id: string
+  nickName: string
+}
