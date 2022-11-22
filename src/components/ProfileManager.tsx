@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
       textAlign: 'center',
       '& span, svg': {
         verticalAlign: 'middle',
-        color: 'rightgray',
+        color: 'lightgray',
         fontFamily: '"Comic Neue", cursive',
       },
     },
