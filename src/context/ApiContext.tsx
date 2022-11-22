@@ -3,7 +3,31 @@ import { withCookies } from 'react-cookie'
 import axios from 'axios'
 import { Profile, EditedProfile, Cover, FriendRequest, DM } from '../types'
 
-export const ApiContext = createContext({})
+export const ApiContext = createContext(
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  {} as {
+    profile: Profile
+    profiles: Profile[]
+    editedProfile: EditedProfile
+    setEditedProfile: React.Dispatch<React.SetStateAction<EditedProfile>>
+    friendRequestList: FriendRequest[]
+    allFriendRequestList: FriendRequest[]
+    inbox: DM[]
+    cover: Cover
+    setCover: React.Dispatch<React.SetStateAction<Cover>>
+    createProfile: () => Promise<void>
+    updateProfile: () => Promise<void>
+    deleteProfile: () => Promise<void>
+    createFriendRequest: (
+      request: Omit<FriendRequest, 'id' | 'approved'>
+    ) => Promise<void>
+    approveFriendRequest: (
+      request: FriendRequest,
+      approvedRequest: FriendRequest
+    ) => Promise<void>
+    sendDM: (DM: DM) => Promise<void>
+  }
+)
 
 const ApiContextProvider: React.FC = (props: any) => {
   const [profile, setProfile] = useState<Profile>({
@@ -24,7 +48,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   const [allFriendRequestList, setAllFriendRequestList] = useState<
     FriendRequest[]
   >([])
-  const [inbox, setInbox] = useState([])
+  const [inbox, setInbox] = useState<DM[]>([])
   const [cover, setCover] = useState<Cover>({ name: '' })
   const token = props.cookies.get('current-token') as string
 
@@ -173,7 +197,9 @@ const ApiContextProvider: React.FC = (props: any) => {
     }
   }
 
-  const createFriendRequest = async (request: FriendRequest): Promise<void> => {
+  const createFriendRequest = async (
+    request: Omit<FriendRequest, 'id' | 'approved'>
+  ): Promise<void> => {
     try {
       const res = await axios.post(
         'http://127.0.0.1:8000/api/user/approval/',
