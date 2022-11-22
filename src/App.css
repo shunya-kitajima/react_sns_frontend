@@ -87,3 +87,12 @@
   outline: none;
   cursor: none;
 }
+
+.trash {
+  background-color: transparent;
+  color: lightgray;
+  font-size: 24px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
