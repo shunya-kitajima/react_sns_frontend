@@ -45,5 +45,5 @@ export interface Cover {
 export interface DM {
   sender: number | null
   receiver: number | null
-  content: string
+  message: string
 }
