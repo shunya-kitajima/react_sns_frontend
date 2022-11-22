@@ -67,3 +67,23 @@
   outline: none;
   cursor: pointer;
 }
+
+.user {
+  background-color: transparent;
+  color: lightgray;
+  margin-left: 10px;
+  font-size: 36px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.user-invalid {
+  background-color: transparent;
+  color: dimgray;
+  margin-left: 10px;
+  font-size: 36px;
+  border: none;
+  outline: none;
+  cursor: none;
+}
