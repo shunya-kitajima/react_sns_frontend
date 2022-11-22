@@ -8,7 +8,18 @@ import { IoIosSend, IoMdClose } from 'react-icons/io'
 import Modal from 'react-modal'
 import { ApiContext } from '../context/ApiContext'
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+  text: {
+    margin: theme.spacing(3),
+  },
+}))
+
 const Request: React.FC = () => {
+  const classes = useStyles()
+
   return <div>Request</div>
 }
 
