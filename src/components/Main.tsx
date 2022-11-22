@@ -50,7 +50,7 @@ const Main: React.FC = () => {
           <BsFillPeopleFill className="badge" />
           Approval request list
         </h3>
-        <div className="app-details">{profile.id !== '' && requestList}</div>
+        <div className="app-details">{profile.id !== null && requestList}</div>
       </Grid>
       <Grid item xs={4}>
         <h3>

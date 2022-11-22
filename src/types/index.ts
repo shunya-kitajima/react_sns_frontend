@@ -19,7 +19,7 @@ export interface Action {
 }
 
 export interface Profile {
-  id: string
+  id: number | null
   nickName: string
   userPro: string
   created_at: string
@@ -27,12 +27,12 @@ export interface Profile {
 }
 
 export interface EditedProfile {
-  id: string
+  id: number | null
   nickName: string
 }
 
 export interface FriendRequest {
-  id: string
+  id: number | null
   askFrom: string
   askTo: string
   approved: boolean

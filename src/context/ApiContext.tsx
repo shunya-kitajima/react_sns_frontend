@@ -31,7 +31,7 @@ export const ApiContext = createContext(
 
 const ApiContextProvider: React.FC = (props: any) => {
   const [profile, setProfile] = useState<Profile>({
-    id: '',
+    id: null,
     nickName: '',
     userPro: '',
     created_at: '',
@@ -39,7 +39,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   })
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [editedProfile, setEditedProfile] = useState<EditedProfile>({
-    id: '',
+    id: null,
     nickName: '',
   })
   const [friendRequestList, setFriendRequestList] = useState<FriendRequest[]>(
@@ -146,6 +146,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   }
 
   const deleteProfile = async (): Promise<void> => {
+    if (profile.id === null) throw new Error('profile data error')
     try {
       await axios.delete(
         `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
@@ -162,14 +163,14 @@ const ApiContextProvider: React.FC = (props: any) => {
         })
       )
       setProfile({
-        id: '',
+        id: null,
         nickName: '',
         userPro: '',
         created_at: '',
         img: '',
       })
       setEditedProfile({
-        id: '',
+        id: null,
         nickName: '',
       })
       setCover({
@@ -186,6 +187,7 @@ const ApiContextProvider: React.FC = (props: any) => {
     editData.append('nickName', editedProfile.nickName)
     cover.imgFile.name !== '' &&
       editData.append('img', cover.imgFile, cover.imgFile.name)
+    if (profile.id === null) throw new Error('profile data error')
     try {
       const res = await axios.put(
         `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
@@ -227,6 +229,7 @@ const ApiContextProvider: React.FC = (props: any) => {
     request: FriendRequest,
     approvedRequest: FriendRequest
   ): Promise<void> => {
+    if (request.id === null) throw new Error('profile data error')
     try {
       const res = await axios.put(
         `http://127.0.0.1:8000/api/user/approval/${request.id}/`,
@@ -265,6 +268,7 @@ const ApiContextProvider: React.FC = (props: any) => {
         )
       } else {
         prevRequests[0].approved = true
+        if (prevRequests[0].id === null) throw new Error('request data error')
         await axios.put(
           `http://127.0.0.1:8000/api/user/approval/${prevRequests[0].id}/`,
           prevRequests[0],

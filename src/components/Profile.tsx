@@ -44,7 +44,7 @@ const UserProfile: React.FC<Props> = ({ profileData, requestDataArr }) => {
       <CardContent style={{ padding: 5 }}>
         <Typography variant="h6">{profileData.nickName}</Typography>
         <Typography>{profileData.created_at}</Typography>
-        {requestDataArr.length === 0 && profile.id !== '' ? (
+        {requestDataArr.length === 0 && profile.id !== null ? (
           <Button
             size="small"
             className={classes.button}
