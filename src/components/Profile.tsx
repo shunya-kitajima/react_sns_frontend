@@ -22,9 +22,6 @@ export interface Props {
 const UserProfile: React.FC<Props> = ({ profileData, requestDataArr }) => {
   const classes = useStyles()
   const { profile, createFriendRequest } = useContext(ApiContext)
-  if (profile === undefined || createFriendRequest === undefined) {
-    throw new Error('useCount must be used within a CountProvider')
-  }
 
   const sendRequest = async (): Promise<void> => {
     const requestData = {
