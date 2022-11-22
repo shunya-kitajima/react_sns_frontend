@@ -229,7 +229,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   ): Promise<void> => {
     try {
       const res = await axios.put(
-        `http://127.0.0.1:8000/api/user/approval/${request.id}`,
+        `http://127.0.0.1:8000/api/user/approval/${request.id}/`,
         approvedRequest,
         {
           headers: {
