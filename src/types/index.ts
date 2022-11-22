@@ -39,7 +39,7 @@ export interface FriendRequest {
 }
 
 export interface Cover {
-  name: string | Blob
+  imgFile: File
 }
 
 export interface DM {
