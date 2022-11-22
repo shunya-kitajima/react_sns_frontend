@@ -58,3 +58,12 @@
   border: none;
   outline: none;
 }
+
+.photo {
+  background-color: transparent;
+  color: lightgray;
+  font-size: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
