@@ -115,6 +115,24 @@ const ProfileManager: React.FC = () => {
       <button className="trash" onClick={async () => await deleteProfile()}>
         <BsTrash />
       </button>
+      <div className="profile-details">
+        <BsPersonCheckFill className="badge" />
+        {profile.id !== '' && <span>{profile.nickName}</span>}
+        <hr />
+        <input
+          type="text"
+          value={editedProfile.nickName}
+          name="nickName"
+          onChange={(e) =>
+            setEditedProfile({ ...editedProfile, nickName: e.target.value })
+          }
+        />
+        <hr />
+        <span>Joined at {profile.created_at}</span>
+        <hr />
+        <LocationOn />
+        <span>Japan</span>
+      </div>
     </div>
   )
 }
