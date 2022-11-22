@@ -25,8 +25,8 @@ const UserProfile: React.FC<Props> = ({ profileData, requestDataArr }) => {
 
   const sendRequest = async (): Promise<void> => {
     const requestData = {
-      askFrom: profileData.userPro,
-      askTo: profile.userPro,
+      askFrom: profile.userPro,
+      askTo: profileData.userPro,
     }
     await createFriendRequest(requestData)
   }
