@@ -41,7 +41,7 @@ const Request: React.FC<Props> = ({ requestData, profileDataArr }) => {
   const approve = async (): Promise<void> => {
     const approvedRequestData = {
       ...requestData,
-      approve: true,
+      approved: true,
     }
     await approveFriendRequest(requestData, approvedRequestData)
   }
