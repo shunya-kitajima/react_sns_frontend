@@ -49,7 +49,9 @@ const ApiContextProvider: React.FC = (props: any) => {
     FriendRequest[]
   >([])
   const [inbox, setInbox] = useState<DM[]>([])
-  const [cover, setCover] = useState<Cover>({ name: '' })
+  const [cover, setCover] = useState<Cover>({
+    imgFile: new File(['dummy'], 'dummy.txt', { type: 'text/plain' }),
+  })
   const token = props.cookies.get('current-token') as string
 
   useEffect(() => {
@@ -123,7 +125,8 @@ const ApiContextProvider: React.FC = (props: any) => {
   const createProfile = async (): Promise<void> => {
     const createData = new FormData()
     createData.append('nickName', editedProfile.nickName)
-    cover.name !== '' && createData.append('img', cover, cover.name)
+    cover.imgFile.name !== '' &&
+      createData.append('img', cover.imgFile, cover.imgFile.name)
     try {
       const res = await axios.post(
         'http://127.0.0.1:8000/api/user/profile/',
@@ -169,7 +172,9 @@ const ApiContextProvider: React.FC = (props: any) => {
         id: '',
         nickName: '',
       })
-      setCover({ name: '' })
+      setCover({
+        imgFile: new File(['dummy'], 'dummy.txt', { type: 'text/plain' }),
+      })
       setFriendRequestList([])
     } catch (err: any) {
       console.log(err.message)
@@ -179,7 +184,8 @@ const ApiContextProvider: React.FC = (props: any) => {
   const updateProfile = async (): Promise<void> => {
     const editData = new FormData()
     editData.append('nickName', editedProfile.nickName)
-    cover.name !== '' && editData.append('img', cover, cover.name)
+    cover.imgFile.name !== '' &&
+      editData.append('img', cover.imgFile, cover.imgFile.name)
     try {
       const res = await axios.put(
         `http://127.0.0.1:8000/api/user/profile/${profile.id}/`,
