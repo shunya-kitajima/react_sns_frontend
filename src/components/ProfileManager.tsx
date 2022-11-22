@@ -112,6 +112,9 @@ const ProfileManager: React.FC = () => {
           <BsPersonPlus />
         </button>
       )}
+      <button className="trash" onClick={async () => await deleteProfile()}>
+        <BsTrash />
+      </button>
     </div>
   )
 }
