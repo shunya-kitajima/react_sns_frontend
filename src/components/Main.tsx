@@ -5,6 +5,7 @@ import { BsFillPeopleFill } from 'react-icons/bs'
 import { ApiContext } from '../context/ApiContext'
 import UserProfile from './Profile'
 import ProfileManager from './ProfileManager'
+import Request from './Request'
 
 const Main: React.FC = () => {
   const { profile, profiles, friendRequestList, allFriendRequestList, inbox } =
@@ -23,6 +24,19 @@ const Main: React.FC = () => {
         requestDataArr={filteredRequests}
       />
     ))
+  const requestList = (
+    <ul>
+      {friendRequestList.map((req) => (
+        <Request
+          key={req.id}
+          requestData={req}
+          profileDataArr={profiles.filter(
+            (prof) => req.askFrom === prof.userPro
+          )}
+        />
+      ))}
+    </ul>
+  )
 
   return (
     <Grid container>
@@ -30,14 +44,14 @@ const Main: React.FC = () => {
         <div className="app-profiles">{profileList}</div>
       </Grid>
       <Grid item xs={4}>
-        <div className="app-details"></div>
+        <div className="app-details">
+          <ProfileManager />
+        </div>
         <h3 className="title-friendRequest">
           <BsFillPeopleFill className="badge" />
           Approval request list
         </h3>
-        <div className="app-details">
-          <ProfileManager />
-        </div>
+        <div className="app-details">{profile.id !== '' && requestList}</div>
       </Grid>
       <Grid item xs={4}>
         <h3>
