@@ -4,6 +4,7 @@ import { GoMail } from 'react-icons/go'
 import { BsFillPeopleFill } from 'react-icons/bs'
 import { ApiContext } from '../context/ApiContext'
 import UserProfile from './Profile'
+import ProfileManager from './ProfileManager'
 
 const Main: React.FC = () => {
   const { profile, profiles, friendRequestList, allFriendRequestList, inbox } =
@@ -34,7 +35,9 @@ const Main: React.FC = () => {
           <BsFillPeopleFill className="badge" />
           Approval request list
         </h3>
-        <div className="app-details"></div>
+        <div className="app-details">
+          <ProfileManager />
+        </div>
       </Grid>
       <Grid item xs={4}>
         <h3>
