@@ -33,7 +33,7 @@ const ApiContextProvider: React.FC = (props: any) => {
   const [profile, setProfile] = useState<Profile>({
     id: null,
     nickName: '',
-    userPro: '',
+    userPro: null,
     created_at: '',
     img: '',
   })
@@ -165,7 +165,7 @@ const ApiContextProvider: React.FC = (props: any) => {
       setProfile({
         id: null,
         nickName: '',
-        userPro: '',
+        userPro: null,
         created_at: '',
         img: '',
       })
