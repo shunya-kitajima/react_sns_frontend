@@ -25,7 +25,7 @@ export const ApiContext = createContext(
       request: FriendRequest,
       approvedRequest: FriendRequest
     ) => Promise<void>
-    sendDM: (DM: DM) => Promise<void>
+    sendDM: (DM: Omit<DM, 'id'>) => Promise<void>
   }
 )
 
@@ -285,7 +285,7 @@ const ApiContextProvider: React.FC = (props: any) => {
     }
   }
 
-  const sendDM = async (DM: DM): Promise<void> => {
+  const sendDM = async (DM: Omit<DM, 'id'>): Promise<void> => {
     try {
       await axios.post('http://127.0.0.1:8000/api/dm/message/', DM, {
         headers: {

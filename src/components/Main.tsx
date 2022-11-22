@@ -6,6 +6,7 @@ import { ApiContext } from '../context/ApiContext'
 import UserProfile from './Profile'
 import ProfileManager from './ProfileManager'
 import Request from './Request'
+import InboxDM from './InboxDM'
 
 const Main: React.FC = () => {
   const { profile, profiles, friendRequestList, allFriendRequestList, inbox } =
@@ -37,6 +38,18 @@ const Main: React.FC = () => {
     </ul>
   )
 
+  const inboxList = (
+    <ul>
+      {inbox.map((dm) => (
+        <InboxDM
+          key={dm.id}
+          profileDataArr={profiles.filter((prof) => dm.sender === prof.userPro)}
+          dmData={dm}
+        />
+      ))}
+    </ul>
+  )
+
   return (
     <Grid container>
       <Grid item xs={4}>
@@ -57,7 +70,7 @@ const Main: React.FC = () => {
           <GoMail className="badge" />
           DM Inbox
         </h3>
-        <div className="app-dms"></div>
+        <div className="app-dms">{profile.id !== null && inboxList}</div>
       </Grid>
     </Grid>
   )
