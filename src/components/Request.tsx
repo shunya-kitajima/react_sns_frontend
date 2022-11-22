@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
 
 export interface Props {
   requestData: FriendRequest
-  profileData: Profile
+  profileDataArr: Profile[]
 }
 
-const Request: React.FC<Props> = ({ requestData, profileData }) => {
+const Request: React.FC<Props> = ({ requestData, profileDataArr }) => {
   const classes = useStyles()
   Modal.setAppElement('#root')
   const { profile, approveFriendRequest, sendDM } = useContext(ApiContext)
@@ -56,7 +56,7 @@ const Request: React.FC<Props> = ({ requestData, profileData }) => {
 
   return (
     <li className="list-item">
-      <h4>{profileData.nickName}</h4>
+      <h4>{profileDataArr[0].nickName}</h4>
       {!requestData.approved ? (
         <Button
           size="small"
