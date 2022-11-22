@@ -52,6 +52,7 @@ const Request: React.FC<Props> = ({ requestData, profileDataArr }) => {
       message: text,
     }
     await sendDM(sendData)
+    setModalIsOpen(false)
   }
 
   return (
