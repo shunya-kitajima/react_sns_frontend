@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { ApiContext } from '../context/ApiContext'
 import Grid from '@material-ui/core/Grid'
 import { GoMail } from 'react-icons/go'
 import { BsFillPeopleFill } from 'react-icons/bs'
+import { ApiContext } from '../context/ApiContext'
 import UserProfile from './Profile'
 
 const Main: React.FC = () => {
