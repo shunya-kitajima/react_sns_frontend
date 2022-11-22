@@ -81,8 +81,8 @@ const ApiContextProvider: React.FC = (props: any) => {
             nickName: resMyProfile.data[0].nickName,
           })
           setFriendRequestList(
-            resMyProfile.data.filter((ask: any) => {
-              return resMyProfile.data[0].userPro === ask.askTo
+            resApproval.data.filter((request: any) => {
+              return resMyProfile.data[0].userPro === request.askTo
             })
           )
           setAllFriendRequestList(resApproval.data)
