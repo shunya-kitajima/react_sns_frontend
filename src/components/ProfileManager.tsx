@@ -7,7 +7,7 @@ import { MdAddAPhoto } from 'react-icons/md'
 import { FaUserEdit } from 'react-icons/fa'
 import { ApiContext } from '../context/ApiContext'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   profile: {
     '& .image-wrapper': {
       textAlign: 'center',
