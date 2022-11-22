@@ -11,17 +11,16 @@ const Main: React.FC = () => {
   const { profile, profiles, friendRequestList, allFriendRequestList, inbox } =
     useContext(ApiContext)
   const filteredProfiles = profiles.filter((prof) => prof.id !== profile.id)
-  const filteredRequests = allFriendRequestList.filter(
-    (request) =>
-      profile.userPro === request.askFrom || profile.userPro === request.askTo
-  )
   const profileList =
     filteredProfiles.length !== 0 &&
     filteredProfiles.map((prof) => (
       <UserProfile
         key={prof.id}
         profileData={prof}
-        requestDataArr={filteredRequests}
+        requestDataArr={allFriendRequestList.filter(
+          (request) =>
+            prof.userPro === request.askFrom || prof.userPro === request.askTo
+        )}
       />
     ))
   const requestList = (
