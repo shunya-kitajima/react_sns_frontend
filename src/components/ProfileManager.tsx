@@ -93,6 +93,25 @@ const ProfileManager: React.FC = () => {
           <MdAddAPhoto className="photo" />
         </IconButton>
       </div>
+      {editedProfile.id !== '' ? (
+        editedProfile.nickName !== '' ? (
+          <button className="user" onClick={async () => await updateProfile()}>
+            <FaUserEdit />
+          </button>
+        ) : (
+          <button className="user-invalid" disabled>
+            <FaUserEdit />
+          </button>
+        )
+      ) : editedProfile.nickName !== '' && cover.imgFile.name !== '' ? (
+        <button className="user" onClick={async () => await createProfile()}>
+          <BsPersonPlus />
+        </button>
+      ) : (
+        <button className="user-invalid" disabled>
+          <BsPersonPlus />
+        </button>
+      )}
     </div>
   )
 }
