@@ -49,7 +49,7 @@ const Request: React.FC<Props> = ({ requestData, profileDataArr }) => {
     const sendData = {
       sender: profile.userPro,
       receiver: requestData.askFrom,
-      content: text,
+      message: text,
     }
     await sendDM(sendData)
   }
