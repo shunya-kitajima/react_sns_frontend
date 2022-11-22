@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core'
 import { BsPersonCheckFill, BsPersonPlus, BsTrash } from 'react-icons/bs'
 import { MdAddAPhoto } from 'react-icons/md'
 import { FaUserEdit } from 'react-icons/fa'
-import ApiContext from '../context/ApiContext'
+import { ApiContext } from '../context/ApiContext'
 
 const useStyles = makeStyles((theme) => ({
   profile: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       },
       margin: 6,
     },
-    '& .profile-img': {
+    '& .profile-image': {
       width: 150,
       height: 150,
       objectFit: 'cover',
@@ -43,7 +43,58 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ProfileManager: React.FC = () => {
-  return <div>ProfileManager</div>
+  const classes = useStyles()
+  const {
+    profile,
+    editedProfile,
+    setEditedProfile,
+    cover,
+    setCover,
+    createProfile,
+    updateProfile,
+    deleteProfile,
+  } = useContext(ApiContext)
+
+  const handleEditImage = (): void => {
+    const fileInput = document.getElementById('imageInput') as HTMLElement
+    fileInput.click()
+  }
+
+  return (
+    <div className={classes.profile}>
+      <div className="image-wrapper">
+        {profile.img !== '' ? (
+          <img src={profile.img} alt="profile" className="profile-image" />
+        ) : (
+          <img
+            src="http://127.0.0.1:8000/media/image/null.pnp"
+            alt="profile"
+            className="profile-image"
+          />
+        )}
+        <input
+          type="file"
+          id="imageInput"
+          hidden
+          onChange={(e) => {
+            if (e.target?.files !== null) {
+              setCover({ imgFile: e.target?.files[0] })
+            } else {
+              setCover({
+                imgFile: new File(['dummy'], 'dummy.txt', {
+                  type: 'text/plain',
+                }),
+              })
+            }
+            e.target.value = ''
+          }}
+        />
+        <IconButton onClick={() => handleEditImage()}>
+          <MdAddAPhoto className="photo" />
+        </IconButton>
+      </div>
+    </div>
+  )
 }
 
 export default ProfileManager
