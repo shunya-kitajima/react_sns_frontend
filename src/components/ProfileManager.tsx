@@ -93,7 +93,7 @@ const ProfileManager: React.FC = () => {
           <MdAddAPhoto className="photo" />
         </IconButton>
       </div>
-      {editedProfile.id !== '' ? (
+      {editedProfile.id !== null ? (
         editedProfile.nickName !== '' ? (
           <button className="user" onClick={async () => await updateProfile()}>
             <FaUserEdit />
@@ -117,7 +117,7 @@ const ProfileManager: React.FC = () => {
       </button>
       <div className="profile-details">
         <BsPersonCheckFill className="badge" />
-        {profile.id !== '' && <span>{profile.nickName}</span>}
+        {profile.id !== null && <span>{profile.nickName}</span>}
         <hr />
         <input
           type="text"
