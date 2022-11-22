@@ -41,7 +41,7 @@ const UserProfile: React.FC<Props> = ({ profileData, requestDataArr }) => {
       ) : (
         <CardMedia
           style={{ minWidth: 100 }}
-          image="http://127.0.0.1:8000/media/image/null.pnp"
+          image="http://127.0.0.1:8000/media/image/null.png"
         />
       )}
       <CardContent style={{ padding: 5 }}>
