@@ -67,7 +67,7 @@ const ProfileManager: React.FC = () => {
           <img src={profile.img} alt="profile" className="profile-image" />
         ) : (
           <img
-            src="http://127.0.0.1:8000/media/image/null.pnp"
+            src="http://127.0.0.1:8000/media/image/null.png"
             alt="profile"
             className="profile-image"
           />
