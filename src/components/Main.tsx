@@ -53,7 +53,9 @@ const Main: React.FC = () => {
   return (
     <Grid container>
       <Grid item xs={4}>
-        <div className="app-profiles">{profileList}</div>
+        <div className="app-profiles">
+          <div className="task-list">{profileList}</div>
+        </div>
       </Grid>
       <Grid item xs={4}>
         <div className="app-details">
@@ -63,14 +65,18 @@ const Main: React.FC = () => {
           <BsFillPeopleFill className="badge" />
           Approval request list
         </h3>
-        <div className="app-details">{profile.id !== null && requestList}</div>
+        <div className="app-details">
+          <div className="task-list">{profile.id !== null && requestList}</div>
+        </div>
       </Grid>
       <Grid item xs={4}>
         <h3>
           <GoMail className="badge" />
           DM Inbox
         </h3>
-        <div className="app-dms">{profile.id !== null && inboxList}</div>
+        <div className="app-dms">
+          <div className="task-list">{profile.id !== null && inboxList}</div>
+        </div>
       </Grid>
     </Grid>
   )
