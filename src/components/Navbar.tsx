@@ -20,7 +20,12 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar: React.FC = (props: any) => {
   const classes = useStyles()
-  const {} = useContext()
+  const { profiles, friendRequestList } = useContext(ApiContext)
+  const noApproveRequestList = friendRequestList.filter(
+    (request) =>
+      !request.approved &&
+      profiles.filter((prof) => prof.userPro === request.askFrom).length !== 0
+  )
 
   const logout = (): void => {
     props.cookies.remove('current-token')
@@ -35,7 +40,7 @@ const Navbar: React.FC = (props: any) => {
         </Typography>
         <Badge
           className={classes.badge}
-          badgeContent={3}
+          badgeContent={noApproveRequestList.length}
           color="secondary"
           overlap="rectangular"
         >
