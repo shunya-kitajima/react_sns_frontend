@@ -7,6 +7,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import Badge from '@material-ui/core/Badge'
 import { FiLogOut } from 'react-icons/fi'
 import { withCookies } from 'react-cookie'
+import { ApiContext } from '../context/ApiContext'
 
 const useStyles = makeStyles((theme) => ({
   badge: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar: React.FC = (props: any) => {
   const classes = useStyles()
+  const {} = useContext()
 
   const logout = (): void => {
     props.cookies.remove('current-token')
